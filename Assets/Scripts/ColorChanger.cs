@@ -14,7 +14,7 @@ public class ColorChanger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             spriteRenderer.color = Color.red;
-            
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
