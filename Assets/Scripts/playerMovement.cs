@@ -18,12 +18,14 @@ public class playerMovement : MonoBehaviour
     private float Move;
 
     public bool isJumping;
+    public bool isFacingRight;
 
     public string nextLevel = "Scene_2";
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        isFacingRight = true;
     }
 
     // Update is called once per frame
@@ -36,6 +38,14 @@ public class playerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isJumping == false)
         {
             rb.AddForce(new Vector2(rb.velocity.x, jump));
+        }
+        if(!isFacingRight && Move > 0)
+        {
+            Flip();
+        }
+        else if(isFacingRight && Move < 0)
+        {
+            Flip();
         }
     }
 
@@ -73,6 +83,13 @@ public class playerMovement : MonoBehaviour
 
         }
 
+    }
+    public void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
     }
 }
 
