@@ -6,13 +6,13 @@ TagManager:
   tags:
   - Water
   - Death
-  - Health
   - Coin
   - Enemy
   - TalkZone
   - Bullet
   - Floor
   - MovableObject
+  - Heart
   layers:
   - Default
   - TransparentFX

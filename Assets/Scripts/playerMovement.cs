@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
-
-   
+    public int coinCount = 0;
+    public int playerLife = 0;
 
     private int jumpCount = 0;
 
@@ -47,6 +47,7 @@ public class playerMovement : MonoBehaviour
         {
             Flip();
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -78,6 +79,18 @@ public class playerMovement : MonoBehaviour
             case "Finish":
                 {
                     SceneManager.LoadScene(nextLevel);
+                    break;
+                }
+            case "Coin":
+                {
+                    coinCount++;
+                    Destroy(gameObject);
+                    break;
+                }
+            case "Heart":
+                {
+                    playerLife++;
+                    Destroy(gameObject);
                     break;
                 }
 
