@@ -4,99 +4,55 @@ using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
-    public int coinCount = 0;
-    public int playerLife = 0;
-
-    private int jumpCount = 0;
 
     private Rigidbody2D rb;
 
     public float speed;
-    public float jump;
-    public float jumpForce = 10f;
+    public float Jump;
+    public float CapsuleHeight;
+    public float CapsuleRadius;
 
     private float Move;
+
+    private bool isGrounded; 
 
     public bool isJumping;
     public bool isFacingRight;
 
-    public string nextLevel = "Scene_2";
+    public Transform feetPosition;
+
+    public LayerMask groundMask;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         isFacingRight = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.OverlapCapsule(feetPosition.position, new Vector2(CapsuleHeight, CapsuleRadius), CapsuleDirection2D.Horizontal, 0, groundMask);
         Move = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(speed * Move, rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && isJumping == false)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rb.AddForce(new Vector2(rb.velocity.x, jump));
+           rb.velocity = new Vector2(rb.velocity.x, Jump);
         }
-        if(!isFacingRight && Move > 0)
-        {
-            Flip();
-        }
-        else if(isFacingRight && Move < 0)
+        if (!isFacingRight && Move > 0)
         {
             Flip();
         }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
+        else if (isFacingRight && Move < 0)
         {
-            isJumping = false;
+            Flip();
         }
     }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Floor"))
-        {
-            isJumping = true;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
 
-        switch (collision.tag)
-        {
-            case "Death":
-                {
-                    string thisLevel = SceneManager.GetActiveScene().name;
-                    SceneManager.LoadScene(thisLevel);
-                    Debug.Log("Hit");
-                    break;
-                }
-            case "Finish":
-                {
-                    SceneManager.LoadScene(nextLevel);
-                    break;
-                }
-            case "Coin":
-                {
-                    coinCount++;
-                    Destroy(gameObject);
-                    break;
-                }
-            case "Heart":
-                {
-                    playerLife++;
-                    Destroy(gameObject);
-                    break;
-                }
 
-        }
-
-    }
     public void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -104,6 +60,7 @@ public class playerMovement : MonoBehaviour
         localScale.x *= -1f;
         transform.localScale = localScale;
     }
+   
 }
 
 
