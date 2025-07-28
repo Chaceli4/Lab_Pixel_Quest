@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene3.unity
     guid: 2ff20e6fa79ba8c47921478979b987f1
+  - enabled: 1
+    path: Assets/TheREALGame.unity
+    guid: 329b68162a39d7e4b9c800f0c90eedb5
   m_configObjects: {}
