@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    Image Health;
+    public Image Health;
     // Start is called before the first frame update
     void Start()
     {
